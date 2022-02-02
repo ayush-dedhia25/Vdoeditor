@@ -1,0 +1,17 @@
+{
+   "name": "video-renderer",
+   "version": "1.0.0",
+   "description": "A video rendering tool!",
+   "main": "app.js",
+   "scripts": {
+      "start": "nodemon app.js"
+   },
+   "keywords": [],
+   "author": "Ayush Dedhia <ayushdedhia25@gmail.com>",
+   "license": "ISC",
+   "dependencies": {
+      "axios": "^0.25.0",
+      "node-fetch": "^3.2.0",
+      "shotstack-sdk": "^0.0.24"
+   }
+}

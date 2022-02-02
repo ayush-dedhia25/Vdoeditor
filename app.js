@@ -33,16 +33,25 @@ videoEdit
    .setTimeline(videoTimeline)
    .setOutput(videoOutput);
 
-const api = new Shotstack.EditApi();
-api.postRender(videoEdit).then((render) => {
-   const videoId = render.response.id;
+function sleep(ms) {
+   return new Promise(resolve => setTimeout(resolve, ms));
+}
+
+async function feturl(videoId) {
+   await sleep(5000);
    api.getRender(videoId).then((data) => {
       console.log(`[STATUS] ${data.response.status}`);
       console.log(data);
       if (data.response.status === 'done') {
          console.log(data.response.url);
       }
-   }).catch((err) => console.log(err));
+   }).catch((err) => console.log(err))
+}
+const api = new Shotstack.EditApi();
+api.postRender(videoEdit).then((render) => {
+   const videoId = render.response.id;
+   console.log(render);
+   feturl(videoId)
 }).catch((err) => console.log(err));
 
 // dc78620b-378d-481d-a8e3-bdb7bce2211f

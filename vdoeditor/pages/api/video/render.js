@@ -43,19 +43,19 @@ export default async function handler(req, res) {
    let timeline = new Shotstack.Timeline;
    let output = new Shotstack.Output;
    let edit = new Shotstack.Edit;
-   
+
    if (req.method === 'POST') {
       try {
          // Extracting User Inputs
-         const { videoUrl } = JSON.parse(req.body);
-         
+         const videoUrl = req.body.videoUrl;
+
          // Building video parts
          asset
             .setSrc(videoUrl)
             .setTrim(3);
          clip.setAsset(asset)
             .setStart(0)
-            .setLength(10);
+            .setLength(5);
          track
             .setClips([clip]);
          timeline
@@ -66,12 +66,12 @@ export default async function handler(req, res) {
          edit
             .setTimeline(timeline)
             .setOutput(output);
-         
+
          // Editing video
          const shotApi = new Shotstack.EditApi();
          const render = await shotApi.postRender(edit);
          console.log(render);
-         
+
          // Sending back the render information
          res.status(200).json({ ...render });
       } catch (err) {
@@ -83,15 +83,3 @@ export default async function handler(req, res) {
    }
 }
 
-/*
-export default async function handler(req, res) {
-   if (req.method === 'POST') {
-      try {
-         const { videoUrl } = JSON.parse(req.body);
-         res.status(200).json({ message: { url: videoUrl }});
-      } catch (err) {
-         res.status(500).send(err.message);
-      }
-   }
-}
-*/

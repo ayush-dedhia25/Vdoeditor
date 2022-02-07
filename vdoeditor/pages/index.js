@@ -3,7 +3,7 @@ import { useState, useEffect } from 'react';
 function Home() {
    const [videoUrl, setVideoUrl] = useState('');
    const [videoId, setVideoId] = useState('');
-   
+
    const createVideo = async () => {
       try {
          const response = await fetch('/api/video/render', {
@@ -12,26 +12,27 @@ function Home() {
             body: JSON.stringify({ videoUrl: videoUrl })
          });
          const data = await response.json();
-         // setVideoId(data.response.id);
-         console.log(response);
+         setVideoId(data.response.id);
+         console.log('1', data);
+         console.log('2', response);
       } catch (err) {
          console.log(err);
       }
    }
-   
+
    useEffect(() => {
       const fetchVideoUrl = async (uid) => {
          const res = await fetch(`/api/video/${uid}`);
          const result = await res.json();
-         console.log(result.response.url);
+         setVideoUrl(result.response.url);
       }
       if (videoId) fetchVideoUrl(videoId);
    }, [videoId]);
-   
+
    useEffect(() => {
       // code...
    }, [videoUrl]);
-   
+
    return (
       <>
          <input
@@ -42,7 +43,7 @@ function Home() {
          <button onClick={createVideo}>Print</button>
          {videoUrl && (
             <video width={320} height={240} controls>
-               Your browser doesn't support video tag!
+               Your browser doesnt support video tag!
                <source src={videoUrl} type="video/mp4" />
             </video>
          )}

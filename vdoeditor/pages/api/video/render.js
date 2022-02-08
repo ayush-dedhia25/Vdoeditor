@@ -1,85 +1,63 @@
 import Shotstack from 'shotstack-sdk';
+import { ReasonPhrases, StatusCodes, getReasonPhrase } from 'http-status-codes';
 
 const defaultClient = Shotstack.ApiClient.instance;
 defaultClient.basePath = 'https://api.shotstack.io/stage';
 
 const DeveloperKey = defaultClient.authentications['DeveloperKey'];
-DeveloperKey.apiKey = 'KQEO1Rcq1L7NjdbhQsBYC530SS93oQKA30TxlTAJ';
-
-/*
-let videoAsset = new Shotstack.VideoAsset;
-videoAsset
-   .setSrc('https://s3-ap-southeast-2.amazonaws.com/shotstack-assets/footage/skater.hd.mp4')
-   .setTrim(3);
-
-let videoClip = new Shotstack.Clip;
-videoClip
-   .setAsset(videoAsset)
-   .setStart(0)
-   .setLength(8);
-
-let videoTrack = new Shotstack.Track;
-videoTrack.setClips([videoClip]);
-
-let videoTimeline = new Shotstack.Timeline;
-videoTimeline.setTracks([videoTrack]);
-
-let videoOutput = new Shotstack.Output;
-videoOutput
-   .setFormat('mp4')
-   .setResolution('hd');
-
-let videoEdit = new Shotstack.Edit;
-videoEdit
-   .setTimeline(videoTimeline)
-   .setOutput(videoOutput);
-*/
+DeveloperKey.apiKey = process.env.shotStackApiKey;
 
 export default async function handler(req, res) {
-   // Video Meta-data
-   let asset = new Shotstack.VideoAsset;
-   let clip = new Shotstack.Clip;
-   let track = new Shotstack.Track;
-   let timeline = new Shotstack.Timeline;
-   let output = new Shotstack.Output;
-   let edit = new Shotstack.Edit;
+   // Generating Video Meta-data
+   const VideoAsset = new Shotstack.VideoAsset;
+   const Clip = new Shotstack.Clip();
+   const Track = new Shotstack.Track();
+   const Timeline = new Shotstack.Timeline();
+   const Output = new Shotstack.Output();
+   const Edit = new Shotstack.Edit();
 
    if (req.method === 'POST') {
       try {
          // Extracting User Inputs
-         const videoUrl = req.body.videoUrl;
-
-         // Building video parts
-         asset
+         const { videoUrl } = req.body;
+         
+         // Building Video Clips
+         VideoAsset
             .setSrc(videoUrl)
             .setTrim(3);
-         clip.setAsset(asset)
+         Clip
+            .setAsset(asset)
             .setStart(0)
             .setLength(5);
-         track
+         Track
             .setClips([clip]);
-         timeline
+         Timeline
             .setTracks([track]);
-         output
+         Output
             .setFormat('mp4')
             .setResolution('sd');
-         edit
+         Edit
             .setTimeline(timeline)
             .setOutput(output);
-
-         // Editing video
+         
+         // Editing and Rendering the Above Video Parts
          const shotApi = new Shotstack.EditApi();
          const render = await shotApi.postRender(edit);
          console.log(render);
-
+         
          // Sending back the render information
-         res.status(200).json({ ...render });
+         res.status(StatusCodes.OK);
+         res.json(render);
+         res.end();
       } catch (err) {
          console.log(err);
-         res.status(500).json({ error: err.message });
+         res.status(StatusCodes.INTERNAL_SERVER_ERROR);
+         res.send({ error: getReasonPhrase(StatusCodes.INTERNAL_SERVER_ERROR) });
+         res.end();
       }
    } else {
-      res.status(424).send('Method not allowed!');
+      res.status(StatusCodes.METHOD_NOT_FOUND);
+      res.send({ message: StatusCodes.METHOD_NOT_FOUND });
+      res.end();
    }
 }
-

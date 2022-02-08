@@ -1,8 +1,12 @@
 import { useState, useEffect } from 'react';
+import styles from '../styles/Home.module.css';
+
+import VideoPlayer from '../components/VideoPlayer';
 
 function Home() {
-   const [videoUrl, setVideoUrl] = useState('');
+   const [userUrl, setUserUrl] = useState('');
    const [videoId, setVideoId] = useState('');
+   const [videoUrl, setVideoUrl] = useState('');
 
    const createVideo = async () => {
       try {
@@ -13,8 +17,6 @@ function Home() {
          });
          const data = await response.json();
          setVideoId(data.response.id);
-         console.log('1', data);
-         console.log('2', response);
       } catch (err) {
          console.log(err);
       }
@@ -24,7 +26,7 @@ function Home() {
       const fetchVideoUrl = async (uid) => {
          const res = await fetch(`/api/video/${uid}`);
          const result = await res.json();
-         setVideoUrl(result.response.url);
+         setDemoVideoUrl(result.response.url);
       }
       if (videoId) fetchVideoUrl(videoId);
    }, [videoId]);
@@ -35,19 +37,21 @@ function Home() {
 
    return (
       <>
-         <input
-            type="text"
-            value={videoUrl}
-            onChange={e => setVideoUrl(e.target.value)}
-         />
-         <button onClick={createVideo}>Print</button>
-         {videoUrl && (
-            <video width={320} height={240} controls>
-               Your browser doesnt support video tag!
-               <source src={videoUrl} type="video/mp4" />
-            </video>
-         )}
-         <p>{videoId}</p>
+         <section className={styles.container}>
+            <label className={styles.inputLabel}>
+               <input
+                  type="url"
+                  value={userUrl}
+                  className={styles.inputField}
+                  placeholder=" "
+                  onChange={e => setUserUrl(e.target.value)}
+               />
+               <p className={styles.inputHint}>ENTER YOUR URL</p>
+            </label>
+            
+            <button className={styles.renderBtn} onClick={createVideo}>Render</button>
+            <VideoPlayer src={videoUrl} text="Video is loading" spinner />
+         </section>
       </>
    )
 }

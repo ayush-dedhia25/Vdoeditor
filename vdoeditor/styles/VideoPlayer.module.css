@@ -1,0 +1,45 @@
+.videoContainer {
+   width: 100%;
+   height: 200px;
+   margin-top: 1rem;
+}
+
+.shimmer {
+   display: flex;
+   width: 100%;
+   height: 100%;
+   justify-content: center;
+   align-items: center;
+   flex-direction: column;
+   color: #aaa;
+   font-size: .9rem;
+   font-family: 'Manrope', Sans-Serif;
+   letter-spacing: 1px;
+   border-radius: 5px;
+   background-color: #eee;
+}
+
+.spinner {
+   width: 50px;
+   height: 50px;
+   margin-bottom: .8rem;
+   border: .3rem solid #f3f3f3;
+   border-top: .3rem solid #3498db;
+   border-radius: 50%;
+   animation: spin 1s linear infinite;
+}
+
+.video {
+   width: 100%;
+   height: 100%;
+   border-radius: 5px;
+}
+
+@keyframes spin {
+   0% {
+      transform: rotate(0deg);
+   }
+   100% {
+      transform: rotate(360deg);
+   }
+}

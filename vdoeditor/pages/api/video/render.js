@@ -8,41 +8,62 @@ const DeveloperKey = defaultClient.authentications['DeveloperKey'];
 DeveloperKey.apiKey = process.env.shotStackApiKey;
 
 export default async function handler(req, res) {
-   // Generating Video Meta-data
-   const VideoAsset = new Shotstack.VideoAsset;
-   const Clip = new Shotstack.Clip();
-   const Track = new Shotstack.Track();
-   const Timeline = new Shotstack.Timeline();
-   const Output = new Shotstack.Output();
-   const Edit = new Shotstack.Edit();
-
    if (req.method === 'POST') {
       try {
          // Extracting User Inputs
-         const { videoUrl } = req.body;
+         const { userUrl, userText } = req.body;
          
-         // Building Video Clips
+         if (userUrl === '' || userText === '') {
+            res.status(StatusCodes.NOT_FOUND);
+            res.json({ message: 'Please provide the user inputs!' });
+            res.end();
+            return;
+         }
+         
+         // Generating Video By Rendering its Portion
+         const VideoAsset = new Shotstack.VideoAsset();
          VideoAsset
-            .setSrc(videoUrl)
+            .setSrc(userUrl)
             .setTrim(3);
+         
+         const TitleAsset = new Shotstack.TitleAsset();
+         TitleAsset
+            .setStyle('minimal')
+            .setText(userText)
+            .setSize('large');
+         
+         const Clip = new Shotstack.Clip();
          Clip
-            .setAsset(asset)
+            .setAsset(VideoAsset)
             .setStart(0)
             .setLength(5);
-         Track
-            .setClips([clip]);
-         Timeline
-            .setTracks([track]);
+         
+         const textClip = new Shotstack.Clip();
+         textClip
+            .setAsset(TitleAsset)
+            .setStart(0)
+            .setLength(5)
+            .setEffect('zoomIn');
+         
+         const Track = new Shotstack.Track();
+         Track.setClips([Clip, textClip]);
+         
+         const Timeline = new Shotstack.Timeline();
+         Timeline.setTracks([Track]);
+         
+         const Output = new Shotstack.Output();
          Output
             .setFormat('mp4')
             .setResolution('sd');
+         
+         const Edit = new Shotstack.Edit();
          Edit
-            .setTimeline(timeline)
-            .setOutput(output);
+            .setTimeline(Timeline)
+            .setOutput(Output);
          
          // Editing and Rendering the Above Video Parts
          const shotApi = new Shotstack.EditApi();
-         const render = await shotApi.postRender(edit);
+         const render = await shotApi.postRender(Edit);
          console.log(render);
          
          // Sending back the render information
@@ -56,8 +77,8 @@ export default async function handler(req, res) {
          res.end();
       }
    } else {
-      res.status(StatusCodes.METHOD_NOT_FOUND);
-      res.send({ message: StatusCodes.METHOD_NOT_FOUND });
+      res.status(StatusCodes.METHOD_NOT_ALLOWED);
+      res.send({ message: StatusCodes.METHOD_NOT_ALLOWED });
       res.end();
    }
 }

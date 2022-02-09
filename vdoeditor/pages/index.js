@@ -4,36 +4,47 @@ import styles from '../styles/Home.module.css';
 import VideoPlayer from '../components/VideoPlayer';
 
 function Home() {
+   // User Input States
    const [userUrl, setUserUrl] = useState('');
-   const [videoId, setVideoId] = useState('');
+   const [userText, setUserText] = useState('');
    const [videoUrl, setVideoUrl] = useState('');
-
+   
+   // Video Render States
+   const [videoId, setVideoId] = useState('');
+   
+   // Function to fetch & render the video.
    const createVideo = async () => {
       try {
          const response = await fetch('/api/video/render', {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({ videoUrl: videoUrl })
+            body: JSON.stringify({ userUrl, userText })
          });
-         const data = await response.json();
-         setVideoId(data.response.id);
+         
+         if (response.status === 404 || response.status === 405) {
+            setVideoId('');
+         } else {
+            const data = await response.json();
+            console.log(data);
+            setVideoId(data?.response?.id);
+         }
       } catch (err) {
          console.log(err);
       }
    }
 
    useEffect(() => {
+      console.log(videoId);
       const fetchVideoUrl = async (uid) => {
          const res = await fetch(`/api/video/${uid}`);
          const result = await res.json();
-         setDemoVideoUrl(result.response.url);
+         setVideoUrl(result.response.url);
+         console.log(videoId);
       }
       if (videoId) fetchVideoUrl(videoId);
    }, [videoId]);
-
-   useEffect(() => {
-      // code...
-   }, [videoUrl]);
+   
+   useEffect(() => {/* code... */}, [videoUrl]);
 
    return (
       <>
@@ -44,9 +55,20 @@ function Home() {
                   value={userUrl}
                   className={styles.inputField}
                   placeholder=" "
-                  onChange={e => setUserUrl(e.target.value)}
+                  onChange={({ target }) => setUserUrl(target.value)}
                />
                <p className={styles.inputHint}>ENTER YOUR URL</p>
+            </label>
+            
+            <label className={`${styles.inputLabel} mt-2`}>
+               <input
+                  type="text"
+                  value={userText}
+                  className={styles.inputField}
+                  placeholder=" "
+                  onChange={({ target }) => setUserText(target.value)}
+               />
+               <p className={styles.inputHint}>ENTER YOUR TEXT</p>
             </label>
             
             <button className={styles.renderBtn} onClick={createVideo}>Render</button>
@@ -57,5 +79,3 @@ function Home() {
 }
 
 export default Home;
-
-// https://file-examples-com.github.io/uploads/2017/04/file_example_MP4_480_1_5MG.mp4

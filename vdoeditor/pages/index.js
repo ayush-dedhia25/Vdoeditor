@@ -8,10 +8,10 @@ function Home() {
    const [userUrl, setUserUrl] = useState('');
    const [userText, setUserText] = useState('');
    const [videoUrl, setVideoUrl] = useState('');
-   
+
    // Video Render States
    const [videoId, setVideoId] = useState('');
-   
+
    // Function to fetch & render the video.
    const createVideo = async () => {
       try {
@@ -20,7 +20,7 @@ function Home() {
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify({ userUrl, userText })
          });
-         
+
          if (response.status === 404 || response.status === 405) {
             setVideoId('');
          } else {
@@ -39,12 +39,12 @@ function Home() {
          const res = await fetch(`/api/video/${uid}`);
          const result = await res.json();
          setVideoUrl(result.response.url);
-         console.log(videoId);
+         console.log(result);
       }
       if (videoId) fetchVideoUrl(videoId);
    }, [videoId]);
-   
-   useEffect(() => {/* code... */}, [videoUrl]);
+
+   useEffect(() => {/* code... */ }, [videoUrl]);
 
    return (
       <>
@@ -57,9 +57,9 @@ function Home() {
                   placeholder=" "
                   onChange={({ target }) => setUserUrl(target.value)}
                />
-               <p className={styles.inputHint}>ENTER YOUR URL</p>
+               <p className={styles.inputHint}>ENTER TO Name</p>
             </label>
-            
+
             <label className={`${styles.inputLabel} mt-2`}>
                <input
                   type="text"
@@ -68,9 +68,9 @@ function Home() {
                   placeholder=" "
                   onChange={({ target }) => setUserText(target.value)}
                />
-               <p className={styles.inputHint}>ENTER YOUR TEXT</p>
+               <p className={styles.inputHint}>ENTER From Name</p>
             </label>
-            
+
             <button className={styles.renderBtn} onClick={createVideo}>Render</button>
             <VideoPlayer src={videoUrl} text="Video is loading" spinner />
          </section>

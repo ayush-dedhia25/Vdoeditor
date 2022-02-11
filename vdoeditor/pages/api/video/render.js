@@ -30,11 +30,11 @@ export default async function handler(req, res) {
             "merge": [
                {
                   "find": "NAME",
-                  "replace": "World"
+                  "replace": userUrl
                },
                {
                   "find": "FROM NAME",
-                  "replace": "Karan"
+                  "replace": userText
                }
             ],
             "timeline": {
@@ -170,10 +170,9 @@ export default async function handler(req, res) {
             }
          }
 
-         json2.merge[0].replace = userUrl
-         json2.merge[1].replace = userText
 
-         console.log(json2.merge[0].replace)
+
+         console.log(json2)
 
          const render = await axios({
             method: 'post',

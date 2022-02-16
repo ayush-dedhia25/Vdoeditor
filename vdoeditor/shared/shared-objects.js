@@ -1,0 +1,154 @@
+import axios from 'axios';
+
+export const json2 = {
+   "merge": [
+      {
+         "find": "NAME",
+         "replace": 'karan'
+      },
+      {
+         "find": "FROM NAME",
+         "replace": 'test'
+      }
+   ],
+   "timeline": {
+      "tracks": [
+         {
+            "clips": [
+               {
+                  "asset": {
+                     "type": "html",
+                     "html": "<p>MERRY CHRISTMAS</p>",
+                     "css": "p { font-family: \"Montserrat\"; color: #ffffff; font-size: 14px; text-align: center; font-weight: bold }",
+                     "width": 450,
+                     "height": 30
+                  },
+                  "start": 3.8,
+                  "length": 3.4,
+                  "transition": {
+                     "in": "fade",
+                     "out": "slideDown"
+                  },
+                  "offset": {
+                     "x": -0.1,
+                     "y": 0.08
+                  },
+                  "position": "right"
+               },
+               {
+                  "asset": {
+                     "type": "html",
+                     "html": "<p>{{ NAME }}</p>",
+                     "css": "p { font-family: \"Amatic SC\"; color: #ffffff; font-size: 64px; text-align: center; font-weight: bold; }",
+                     "width": 450,
+                     "height": 100
+                  },
+                  "start": 4,
+                  "length": 2.8,
+                  "transition": {
+                     "in": "fade",
+                     "out": "slideDown"
+                  },
+                  "offset": {
+                     "x": -0.1
+                  },
+                  "position": "right"
+               },
+               {
+                  "asset": {
+                     "type": "html",
+                     "html": "<p>Warmest wishes and all the best for the New Year</p>",
+                     "css": "p { font-family: \"Amatic SC\"; color: #ffffff; font-size: 54px; text-align: center; font-weight: bold; }",
+                     "width": 450,
+                     "height": 200
+                  },
+                  "start": 7.2,
+                  "length": 3.4,
+                  "transition": {
+                     "in": "fade",
+                     "out": "slideDown"
+                  },
+                  "offset": {
+                     "x": -0.1
+                  },
+                  "position": "right"
+               },
+               {
+                  "asset": {
+                     "type": "html",
+                     "html": "<p>FROM</p>",
+                     "css": "p { font-family: \"Montserrat\"; color: #ffffff; font-size: 14px; text-align: center; font-weight: bold }",
+                     "width": 450,
+                     "height": 30
+                  },
+                  "start": 10.4,
+                  "length": 3.4,
+                  "transition": {
+                     "in": "fade",
+                     "out": "slideDown"
+                  },
+                  "offset": {
+                     "x": -0.1,
+                     "y": 0.08
+                  },
+                  "position": "right"
+               },
+               {
+                  "asset": {
+                     "type": "html",
+                     "html": "<p>{{FROM NAME}}</p>",
+                     "css": "p { font-family: \"Amatic SC\"; color: #ffffff; font-size: 64px; text-align: center; font-weight: bold; }",
+                     "width": 450,
+                     "height": 100
+                  },
+                  "start": 10.6,
+                  "length": 3,
+                  "transition": {
+                     "in": "fade",
+                     "out": "slideDown"
+                  },
+                  "offset": {
+                     "x": -0.1
+                  },
+                  "position": "right"
+               }
+            ]
+         },
+         {
+            "clips": [
+               {
+                  "asset": {
+                     "type": "video",
+                     "src": "https://shotstack-content.s3-ap-southeast-2.amazonaws.com/christmas-2020/christmas-tree-branded.mp4",
+                     "volume": 1
+                  },
+                  "start": 0,
+                  "length": 12
+               }
+            ]
+         }
+      ],
+      "fonts": [
+         {
+            "src": "https://shotstack-assets.s3-ap-southeast-2.amazonaws.com/fonts/AmaticSC-Bold.ttf"
+         },
+         {
+            "src": "https://shotstack-assets.s3-ap-southeast-2.amazonaws.com/fonts/Montserrat-Regular.ttf"
+         }
+      ],
+      "background": "#000000"
+   },
+   "output": {
+      "format": "mp4",
+      "resolution": "sd"
+   }
+}
+
+export const Axios = axios.create({
+   baseURL: 'https://api.shotstack.io/stage',
+   headers: {
+      'Accept': 'application/json',
+      'Content-Type': 'application/json',
+      'x-api-key': process.env.shotStackApiKey
+   }
+});

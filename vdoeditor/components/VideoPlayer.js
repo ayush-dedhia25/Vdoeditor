@@ -2,9 +2,7 @@ import { useEffect } from 'react';
 import styles from '../styles/VideoPlayer.module.css';
 
 function VideoPlayer({ src, spinner, text }) {
-   useEffect(() => {
-      // code ...
-   }, [src]);
+   useEffect(() => {/* code... */}, [src]);
    
    return (
       <div className={styles.videoContainer}>

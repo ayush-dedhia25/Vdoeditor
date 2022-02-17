@@ -1,5 +1,5 @@
 import { StatusCodes } from 'http-status-codes';
-import { Axios } from '../../../shared/shared-objects';
+import { Axios } from '../../../shared/axios';
 
 function sleep(n) {
    return new Promise((resolve, reject) => {

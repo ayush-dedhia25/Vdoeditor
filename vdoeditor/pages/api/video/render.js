@@ -1,8 +1,8 @@
 import Shotstack from 'shotstack-sdk';
-import axios from 'axios';
 import { ReasonPhrases, StatusCodes, getReasonPhrase } from 'http-status-codes';
 
-import { json2, Axios } from '../../../shared/shared-objects';
+import christmasTemplate from '../../../shared/json-templates/christmas';
+import { Axios } from '../../../shared/axios';
 
 const defaultClient = Shotstack.ApiClient.instance;
 defaultClient.basePath = 'https://api.shotstack.io/stage';
@@ -14,27 +14,29 @@ export default async function handler(req, res) {
    if (req.method === 'POST') {
       try {
          // Extracting User Inputs
-         const { toName, fromName } = req.body;
-
-         if (toName === '' || fromName === '') {
+         const { data } = req.body;
+         
+         if (!data || data.length === 0) {
             res.status(StatusCodes.NOT_FOUND);
             res.json({ message: 'Please provide the user inputs!' });
             res.end();
             return;
          }
-         
-         // Replacing the dynamic data in the video
-         json2.merge[0].replace = toName;   // for e.g. To Karan
-         json2.merge[1].replace = fromName; // for e.g. To Ayush
+         christmasTemplate.merge = data;
          
          // Uploading JSON data to the server to render the video
-         const response = await Axios.post('/render', json2);
+         const response = await Axios.post('/render', christmasTemplate);
+         console.log(christmasTemplate);
          
          // Sending back the render information
          res.status(StatusCodes.OK);
          res.json(response.data);
          res.end();
       } catch (err) {
+         // console.log(err);
+         if (err.isAxiosError) {
+            console.log('[Axios Request Error]', err.message);
+         }
          res.status(StatusCodes.INTERNAL_SERVER_ERROR);
          res.send({ error: getReasonPhrase(StatusCodes.INTERNAL_SERVER_ERROR) });
          res.end();

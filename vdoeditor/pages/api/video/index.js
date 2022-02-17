@@ -1,5 +1,6 @@
 export default async function handler(req, res) {
-   // TODO:
-   // Video Callback Handler
-   res.status(200).json({ message: 'test' });
+   // TODO: Thinking about the file ;)
+   res.status(200);
+   res.json({ message: 'test' });
+   res.end();
 }

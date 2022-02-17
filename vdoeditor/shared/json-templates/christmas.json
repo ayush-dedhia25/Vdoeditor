@@ -1,14 +1,12 @@
-import axios from 'axios';
-
-export const json2 = {
+{
    "merge": [
       {
          "find": "NAME",
-         "replace": 'karan'
+         "replace": "karan"
       },
       {
          "find": "FROM NAME",
-         "replace": 'test'
+         "replace": "test"
       }
    ],
    "timeline": {
@@ -143,12 +141,3 @@ export const json2 = {
       "resolution": "sd"
    }
 }
-
-export const Axios = axios.create({
-   baseURL: 'https://api.shotstack.io/stage',
-   headers: {
-      'Accept': 'application/json',
-      'Content-Type': 'application/json',
-      'x-api-key': process.env.shotStackApiKey
-   }
-});

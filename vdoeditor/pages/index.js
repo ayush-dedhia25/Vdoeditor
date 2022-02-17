@@ -1,24 +1,22 @@
 import { useState, useEffect } from 'react';
 import styles from '../styles/Home.module.css';
 
-import { json2 } from '../shared/shared-objects';
 import VideoPlayer from '../components/VideoPlayer';
+import christmasTemplate from '../shared/json-templates/christmas';
 
 function Home() {
    // User Input States
    const [videoUrl, setVideoUrl] = useState('');
-   const [fromName, setFromName] = useState('');
-   const [toName, setToName] = useState('');
+   // const [fromName, setFromName] = useState('');
+   // const [toName, setToName] = useState('');
    
    // below data state will be set by json.merge array and similarly have set form in return snnipet with json.merge.map(data.map)
-   const [data, setData] = useState(json2.merge);
+   const [data, setData] = useState(christmasTemplate.merge);
 
    const handleFormChange = (index, event) => {
       let changedData = [...data];
       changedData[index].replace = event.target.value;
       setData(changedData);
-      setToName(data[0].replace);
-      setFromName(data[1].replace);
       console.log('openchangedata', data);
    }
 
@@ -27,15 +25,13 @@ function Home() {
 
    // Function to fetch & render the video.
    const createVideo = async () => {
-      console.log('To Name:', toName);
-      console.log('From Name:', fromName);
       try {
          const response = await fetch('/api/video/render', {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({ toName, fromName })
+            body: JSON.stringify({ data })
          });
-
+         
          if (response.status === 404 || response.status === 405) {
             setVideoId('');
          } else {
@@ -59,7 +55,7 @@ function Home() {
       if (videoId) fetchVideoUrl(videoId);
    }, [videoId]);
 
-   useEffect(() => {/* code... */ }, [videoUrl]);
+   useEffect(() => {/* code... */}, [videoUrl]);
 
    return (
       <>

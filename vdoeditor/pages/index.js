@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';
-import styles from '../styles/Home.module.css';
 
+import styles from '../styles/Home.module.css';
 import VideoPlayer from '../components/VideoPlayer';
 import christmasTemplate from '../shared/json-templates/christmas';
 
@@ -82,7 +82,6 @@ function Home() {
             <button className={styles.renderBtn} onClick={createVideo}>Render</button>
             <VideoPlayer src={videoUrl} text="Video is loading" spinner />
          </section>
-
       </>
    )
 }

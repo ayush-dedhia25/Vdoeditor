@@ -1,0 +1,38 @@
+2022-02-18 16:27:08.759 IST [5315] LOG:  starting PostgreSQL 14.2 on aarch64-unknown-linux-android, compiled by Android (7714059, based on r416183c1) clang version 12.0.8 (https://android.googlesource.com/toolchain/llvm-project c935d99d7cf2016289302412d708641d52d2f7ee), 64-bit
+2022-02-18 16:27:08.761 IST [5315] LOG:  listening on IPv4 address "127.0.0.1", port 5432
+2022-02-18 16:27:08.769 IST [5315] LOG:  listening on Unix socket "/data/data/com.termux/files/usr/tmp/.s.PGSQL.5432"
+2022-02-18 16:27:08.791 IST [5319] LOG:  database system was interrupted; last known up at 2022-02-18 15:42:29 IST
+2022-02-18 16:27:08.930 IST [5319] LOG:  database system was not properly shut down; automatic recovery in progress
+2022-02-18 16:27:08.938 IST [5319] LOG:  redo starts at 0/16FAC40
+2022-02-18 16:27:08.939 IST [5319] LOG:  invalid record length at 0/16FAC78: wanted 24, got 0
+2022-02-18 16:27:08.939 IST [5319] LOG:  redo done at 0/16FAC40 system usage: CPU: user: 0.00 s, system: 0.00 s, elapsed: 0.00 s
+2022-02-18 16:27:08.978 IST [5315] LOG:  database system is ready to accept connections
+2022-02-19 12:06:05.513 IST [16376] LOG:  starting PostgreSQL 14.2 on aarch64-unknown-linux-android, compiled by Android (7714059, based on r416183c1) clang version 12.0.8 (https://android.googlesource.com/toolchain/llvm-project c935d99d7cf2016289302412d708641d52d2f7ee), 64-bit
+2022-02-19 12:06:05.516 IST [16376] LOG:  listening on IPv4 address "127.0.0.1", port 5432
+2022-02-19 12:06:05.523 IST [16376] LOG:  listening on Unix socket "/data/data/com.termux/files/usr/tmp/.s.PGSQL.5432"
+2022-02-19 12:06:05.548 IST [16381] LOG:  database system was interrupted; last known up at 2022-02-18 19:55:07 IST
+2022-02-19 12:06:05.747 IST [16381] LOG:  database system was not properly shut down; automatic recovery in progress
+2022-02-19 12:06:05.757 IST [16381] LOG:  redo starts at 0/16FBA88
+2022-02-19 12:06:05.772 IST [16381] LOG:  invalid record length at 0/17210A0: wanted 24, got 0
+2022-02-19 12:06:05.772 IST [16381] LOG:  redo done at 0/1721068 system usage: CPU: user: 0.00 s, system: 0.00 s, elapsed: 0.01 s
+2022-02-19 12:06:05.833 IST [16376] LOG:  database system is ready to accept connections
+2022-02-19 12:10:34.351 IST [19949] LOG:  starting PostgreSQL 14.2 on aarch64-unknown-linux-android, compiled by Android (7714059, based on r416183c1) clang version 12.0.8 (https://android.googlesource.com/toolchain/llvm-project c935d99d7cf2016289302412d708641d52d2f7ee), 64-bit
+2022-02-19 12:10:34.353 IST [19949] LOG:  listening on IPv4 address "127.0.0.1", port 5432
+2022-02-19 12:10:34.360 IST [19949] LOG:  listening on Unix socket "/data/data/com.termux/files/usr/tmp/.s.PGSQL.5432"
+2022-02-19 12:10:34.386 IST [19955] LOG:  database system was interrupted; last known up at 2022-02-19 12:06:05 IST
+2022-02-19 12:10:34.568 IST [19955] LOG:  database system was not properly shut down; automatic recovery in progress
+2022-02-19 12:10:34.577 IST [19955] LOG:  invalid record length at 0/1721118: wanted 24, got 0
+2022-02-19 12:10:34.577 IST [19955] LOG:  redo is not required
+2022-02-19 12:10:34.619 IST [19949] LOG:  database system is ready to accept connections
+2022-02-19 12:10:37.827 IST [19949] LOG:  received fast shutdown request
+2022-02-19 12:10:37.830 IST [19949] LOG:  aborting any active transactions
+2022-02-19 12:10:37.834 IST [19949] LOG:  background worker "logical replication launcher" (PID 19961) exited with exit code 1
+2022-02-19 12:10:37.834 IST [19956] LOG:  shutting down
+2022-02-19 12:10:37.884 IST [19949] LOG:  database system is shut down
+2022-02-19 12:10:50.083 IST [20014] LOG:  starting PostgreSQL 14.2 on aarch64-unknown-linux-android, compiled by Android (7714059, based on r416183c1) clang version 12.0.8 (https://android.googlesource.com/toolchain/llvm-project c935d99d7cf2016289302412d708641d52d2f7ee), 64-bit
+2022-02-19 12:10:50.085 IST [20014] LOG:  listening on IPv4 address "127.0.0.1", port 5432
+2022-02-19 12:10:50.095 IST [20014] LOG:  listening on Unix socket "/data/data/com.termux/files/usr/tmp/.s.PGSQL.5432"
+2022-02-19 12:10:50.113 IST [20018] LOG:  database system was shut down at 2022-02-19 12:10:37 IST
+2022-02-19 12:10:50.127 IST [20014] LOG:  database system is ready to accept connections
+2022-02-19 12:11:18.532 IST [20189] FATAL:  database "u0_a1073" does not exist
+2022-02-19 12:11:53.563 IST [20577] FATAL:  terminating connection due to unexpected postmaster exit

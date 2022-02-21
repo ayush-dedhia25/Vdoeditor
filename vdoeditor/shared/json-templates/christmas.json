@@ -137,7 +137,8 @@
       "background": "#000000"
    },
    "output": {
-      "format": "mp4",
-      "resolution": "sd"
-   }
+      "type": "mp4",
+      "resolution": "hd"
+   },
+   "callback": "http://localhost:3000/api/video/status"
 }

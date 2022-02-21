@@ -5,6 +5,6 @@ export const Axios = axios.create({
    headers: {
       'Accept': 'application/json',
       'Content-Type': 'application/json',
-      'x-api-key': process.env.shotStackApiKey
+      'x-api-key': process.env.shotStackApiKey || 'KQEO1Rcq1L7NjdbhQsBYC530SS93oQKA30TxlTAJ'
    }
 });

@@ -22,18 +22,19 @@ export default async function handler(req, res) {
             res.end();
             return;
          }
+         
          christmasTemplate.merge = data;
          
          // Uploading JSON data to the server to render the video
          const response = await Axios.post('/render', christmasTemplate);
-         console.log(christmasTemplate);
+         console.log(response);
          
          // Sending back the render information
          res.status(StatusCodes.OK);
          res.json(response.data);
          res.end();
       } catch (err) {
-         // console.log(err);
+         console.log(err);
          if (err.isAxiosError) {
             console.log('[Axios Request Error]', err.message);
          }

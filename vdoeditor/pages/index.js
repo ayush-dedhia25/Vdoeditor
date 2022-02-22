@@ -7,8 +7,6 @@ import christmasTemplate from '../shared/json-templates/christmas';
 function Home() {
    // User Input States
    const [videoUrl, setVideoUrl] = useState('');
-   // const [fromName, setFromName] = useState('');
-   // const [toName, setToName] = useState('');
    
    // below data state will be set by json.merge array and similarly have set form in return snnipet with json.merge.map(data.map)
    const [data, setData] = useState(christmasTemplate.merge);
@@ -43,17 +41,6 @@ function Home() {
          console.log(err);
       }
    }
-
-   useEffect(() => {
-      console.log(videoId);
-      const fetchVideoUrl = async (uid) => {
-         const res = await fetch(`/api/video/${uid}`);
-         const result = await res.json();
-         setVideoUrl(result.response.url);
-         console.log(result);
-      }
-      if (videoId) fetchVideoUrl(videoId);
-   }, [videoId]);
 
    useEffect(() => {/* code... */}, [videoUrl]);
 

@@ -15,20 +15,20 @@ export default async function handler(req, res) {
       try {
          // Extracting User Inputs
          const { data } = req.body;
-         
+
          if (!data || data.length === 0) {
             res.status(StatusCodes.NOT_FOUND);
             res.json({ message: 'Please provide the user inputs!' });
             res.end();
             return;
          }
-         
+
          christmasTemplate.merge = data;
-         
+
          // Uploading JSON data to the server to render the video
          const response = await Axios.post('/render', christmasTemplate);
          console.log(response);
-         
+
          // Sending back the render information
          res.status(StatusCodes.OK);
          res.json(response.data);

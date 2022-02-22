@@ -2,11 +2,11 @@
    "merge": [
       {
          "find": "NAME",
-         "replace": "karan"
+         "replace": "to name"
       },
       {
          "find": "FROM NAME",
-         "replace": "test"
+         "replace": "from name"
       }
    ],
    "timeline": {
@@ -137,8 +137,7 @@
       "background": "#000000"
    },
    "output": {
-      "type": "mp4",
-      "resolution": "hd"
-   },
-   "callback": "http://localhost:3000/api/video/status"
+      "format": "mp4",
+      "resolution": "sd"
+   }
 }

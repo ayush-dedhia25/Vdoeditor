@@ -7,7 +7,7 @@ import christmasTemplate from '../shared/json-templates/christmas';
 function Home() {
    // User Input States
    const [videoUrl, setVideoUrl] = useState('');
-   
+
    // below data state will be set by json.merge array and similarly have set form in return snnipet with json.merge.map(data.map)
    const [data, setData] = useState(christmasTemplate.merge);
 
@@ -29,7 +29,7 @@ function Home() {
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify({ data })
          });
-         
+
          if (response.status === 404 || response.status === 405) {
             setVideoId('');
          } else {
@@ -42,7 +42,16 @@ function Home() {
       }
    }
 
-   useEffect(() => {/* code... */}, [videoUrl]);
+   //Below use effect is for polling video status, it will be removed once callback function works
+   useEffect(() => {
+      const fetchVideoUrl = async (uid) => {
+         const res = await fetch(`/api/video/${uid}`);
+         const result = await res.json();
+         setVideoUrl(result.response.url);
+      }
+      if (videoId) fetchVideoUrl(videoId);
+   }, [videoId]);
+   useEffect(() => {/* code... */ }, [videoUrl]);
 
    return (
       <>
@@ -65,7 +74,7 @@ function Home() {
                   })}
                </form>
             </div>
-            
+
             <button className={styles.renderBtn} onClick={createVideo}>Render</button>
             <VideoPlayer src={videoUrl} text="Video is loading" spinner />
          </section>
